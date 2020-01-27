@@ -44,7 +44,7 @@ Before installing check_orapg for PostgreSQL, oracle_fdw extension must be insta
 
 Before installing check_orapg for EDB Postgres, make sure edb_dblink_oci extension is installed -in EDB Postgres 11 it is installed by default- and:
 	1. Install dependencies (oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm).
-	2. Create symbolic links (ln -s libclntsh.so.11.1 libclntsh.so, ln -s /usr/lib/oracle/11.2/client64/lib/libnnz11.so /usr/lib64/, ln -s /usr/lib/oracle/11.2/client64/lib/libclntsh.so.11.1 /usr/lib64/).
+	2. Create symbolic links ln -s /usr/lib/oracle/11.2/client64/lib/libclntsh.so.11.1 /usr/lib/oracle/11.2/client64/lib/libclntsh.so, ln -s /usr/lib/oracle/11.2/client64/lib/libnnz11.so /usr/lib64/, ln -s /usr/lib/oracle/11.2/client64/lib/libclntsh.so.11.1 /usr/lib64/).
 	3. Add the value /usr/lib/oracle/11.2/client64/lib/ to the variable oracle_home in postgresql.conf.
 
 
