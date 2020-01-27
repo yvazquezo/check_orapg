@@ -36,7 +36,7 @@ Before installing check_orapg for PostgreSQL, oracle_fdw extension must be insta
 	5. Create symbolic links (ln -s /usr/lib/oracle/11.2/client64/lib/libnnz11.so /usr/lib64/, ln -s /usr/lib/oracle/11.2/client64/lib/libclntsh.so.11.1 /usr/lib64/).
 	6. Install extension oracle_fdw with make and make install commands.
 	7. Restart PostgreSQL.
-	8. Create oracle_fdw extension in the database.
+	8. Create oracle_fdw extension in the database (optional discard and use CASCADE option when create the check_orapg extension).
 
 
 
