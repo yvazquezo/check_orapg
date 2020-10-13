@@ -38,7 +38,7 @@ DECLARE
     v_search_path text;
     v_res pg_foreign_server;
 BEGIN
-    SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+    SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
     EXECUTE 'set search_path to ' || v_search_path;
 
     IF (SELECT relname from pg_class where relname ilike 'mig_db_links') is not null THEN
@@ -323,7 +323,7 @@ BEGIN
 				constraint_name character varying(30) NOT NULL,
 				constraint_type character varying(1),
 				table_name character varying(30) NOT NULL,
-				search_condition character varying(4000),
+				search_condition character varying,
 				r_owner character varying(90),
 				r_constraint_name character varying(30),
 				delete_rule character varying(9),
@@ -1039,7 +1039,7 @@ DECLARE
     v_i int;
     v_search_path text;
 BEGIN
-    SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+    SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
     EXECUTE 'set search_path to ' || v_search_path;
 
     SELECT srvname::text INTO v_exist FROM pg_foreign_server WHERE srvname ilike p_server;
@@ -1204,7 +1204,7 @@ DECLARE
     v_search_path text;
     v_array text[];
 BEGIN
-    SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+    SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
     EXECUTE 'set search_path to ' || v_search_path;
 
     SELECT srvname::text INTO v_exist FROM pg_foreign_server WHERE srvname ilike p_server;
@@ -1387,7 +1387,7 @@ DECLARE
 	v_total_schjobs int;
 	v_total_synonyms int;
 BEGIN
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
     EXECUTE 'set search_path to ' || v_search_path;
     
     SELECT count(*) INTO v_total_tbspc FROM pg_tablespace;
@@ -1440,7 +1440,7 @@ DECLARE
 	v_total_synonyms int;
 	v_search_path text;
 BEGIN
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 	
 	SELECT count(*) INTO v_total_tbspc FROM mig_tablespaces;
@@ -1590,7 +1590,7 @@ DECLARE
 	v_res record;
 	v_search_path text;
 BEGIN
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 	
 	v_query := '
@@ -1736,7 +1736,7 @@ DECLARE
 	v_res record;
 	v_search_path text;
 BEGIN
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 	
 	v_query := '
@@ -1886,7 +1886,7 @@ DECLARE
 	v_res record;
 	v_search_path text;
 BEGIN
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 	
 	v_query := '
@@ -2036,7 +2036,7 @@ DECLARE
 	v_res record;
 	v_search_path text;
 BEGIN
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 	
 	v_query := '
@@ -2240,7 +2240,7 @@ DECLARE
 	v_res record;
 	v_search_path text;
 BEGIN
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 	
 	p_schema_list := upper(p_schema_list);
@@ -2546,7 +2546,7 @@ DECLARE
 	v_res record;
 	v_search_path text;
 BEGIN
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 	
 	v_query := '
@@ -2701,7 +2701,7 @@ DECLARE
 	v_list record;
 	v_search_path text;
 BEGIN
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 	
 	FOR v_list IN SELECT owner AS s_schema, table_name AS s_table, owner||'.'||table_name AS s_full, total FROM mig_rows_tables_oracle
@@ -2745,7 +2745,7 @@ DECLARE
 	v_list record;
 	v_search_path text;
 begin
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 	
 	FOR v_list IN EXECUTE 'select owner as s_schema, coalesce(sum(total),0) as s_total
@@ -2774,7 +2774,7 @@ DECLARE
 	v_total_schemas int;
 	v_search_path text;
 BEGIN
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 	
 	-- Global objects to the cluster
@@ -2933,7 +2933,7 @@ DECLARE
 	v_total_schemas int;
 	v_search_path text;
 BEGIN
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 	
 	v_list_schemas := upper(replace(upper($1),'''', ''''''))::text;
@@ -3106,13 +3106,13 @@ DECLARE
 	tab1_size int;
 BEGIN
 	v_schema_list := replace(p_schema_list,'''', '''''')::text;
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 
 	v_date := to_char(p_date, 'yyyy-mm-dd');
 
 	RAISE NOTICE 'Registering validation...';
-	EXECUTE 'SELECT * FROM register_postgres_validation(''' || v_schema_list || ''')';
+	EXECUTE 'SELECT * FROM register_postgres_validation(''' || v_schema_list || '''::text)';
 	RAISE NOTICE 'Validation registered in postgres_validation table';
 
 	RETURN NEXT '--' || lpad('-', 131, '-');
@@ -3356,7 +3356,7 @@ BEGIN
 		END IF;
 		RETURN NEXT rpad(' Schema ', schema_size+2, ' ') || '|' || rpad(' Index ', object_size+2, ' ') || '|' || rpad(' Table ', tab1_size+2, ' ') || '|' || rpad(' Total', total_size+2, ' ');
 		RETURN NEXT rpad('-', schema_size+2, '-') || '+' || rpad('-', object_size+2, '-') || '+' || rpad('-', tab1_size+2, '-') || '+' || rpad('-', total_size+2, '-');
-		FOR v_res IN EXECUTE 'select schema_ref, name_ref, table_attr_pkfkidx, coalesce(total,0) as total from postgres_validation where to_char(date_ref, ''yyyy-mm-dd'')= ''' || v_date || ''' and description = ''Attributes by index'' order by 1,3,4,2'
+		FOR v_res IN EXECUTE 'select schema_ref, name_ref, table_attr_pkfkidx, coalesce(total,0) as total from postgres_validation where to_char(date_ref, ''yyyy-mm-dd'')= ''' || v_date || ''' and description = ''Attributes by index'' order by 1,3,2,4'
 		LOOP
 			RETURN NEXT (' ' || rpad(v_res.schema_ref, schema_size+1, ' ') || '| ' || rpad(v_res.name_ref, object_size+1, ' ') || '| ' || rpad(v_res.table_attr_pkfkidx, tab1_size+1, ' ') || '|' || lpad(v_res.total::text, total_size+1, ' '));
 		END LOOP;
@@ -3386,7 +3386,7 @@ BEGIN
 		END IF;
 		RETURN NEXT rpad(' Schema ', schema_size+2, ' ') || '|' || rpad(' Key ', object_size+2, ' ') || '|' || rpad(' Table ', tab1_size+2, ' ') || '|' || rpad(' Total', total_size+2, ' ');
 		RETURN NEXT rpad('-', schema_size+2, '-') || '+' || rpad('-', object_size+2, '-') || '+' || rpad('-', tab1_size+2, '-') || '+' || rpad('-', total_size+2, '-');
-		FOR v_res IN EXECUTE 'select schema_ref, name_ref, table_attr_pkfkidx, coalesce(total,0) as total from postgres_validation where to_char(date_ref, ''yyyy-mm-dd'')= ''' || v_date || ''' and description in (''Attributes by primary key'',''Attributes by foreign key'') order by 1,3,2'
+		FOR v_res IN EXECUTE 'select schema_ref, name_ref, table_attr_pkfkidx, coalesce(total,0) as total from postgres_validation where to_char(date_ref, ''yyyy-mm-dd'')= ''' || v_date || ''' and description in (''Attributes by primary key'',''Attributes by foreign key'') order by 1,3,2 desc'
 		LOOP
 			RETURN NEXT (' ' || rpad(v_res.schema_ref, schema_size+1, ' ') || '| ' || rpad(v_res.name_ref, object_size+1, ' ') || '| ' || rpad(v_res.table_attr_pkfkidx, tab1_size+1, ' ') || '|' || lpad(v_res.total::text, total_size+1, ' '));
 		END LOOP;
@@ -3462,7 +3462,7 @@ DECLARE
 	v_schema_list text;
 BEGIN
 	v_schema_list := replace($2, '''', '''''')::text;
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 
 	EXECUTE 'copy (SELECT * FROM postgres_file(''' || p_date ||''', '''|| v_schema_list || ''')) to ''' || p_location_file || '/' || p_name_output_file || '.txt''';
@@ -3486,7 +3486,7 @@ DECLARE
 	total_size int;
 BEGIN
 	v_schema_list := replace(p_schema_list,'''', '''''')::text;
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 	
 	v_date := to_char(p_date, 'yyyy-mm-dd');
@@ -3736,7 +3736,7 @@ BEGIN
 		END IF;
 		RETURN NEXT rpad(' Schema ', schema_size+2, ' ') || '|' || rpad(' Index ', object_size+2, ' ') || '|' || rpad(' Table ', tab1_size+2, ' ') || '|' || rpad(' Total', total_size+2, ' ');
 		RETURN NEXT rpad('-', schema_size+2, '-') || '+' || rpad('-', object_size+2, '-') || '+' || rpad('-', tab1_size+2, '-') || '+' || rpad('-', total_size+2, '-');
-		FOR v_res IN EXECUTE 'select schema_ref, name_ref, table_attr_pkfkidx, coalesce(total,0) as total from oracle_validation where to_char(date_ref, ''yyyy-mm-dd'')= ''' || v_date || ''' and description = ''Attributes by index'' order by 1,3,4,2 desc'
+		FOR v_res IN EXECUTE 'select schema_ref, name_ref, table_attr_pkfkidx, coalesce(total,0) as total from oracle_validation where to_char(date_ref, ''yyyy-mm-dd'')= ''' || v_date || ''' and description = ''Attributes by index'' order by 1,3,2,4 desc'
 		LOOP
 			RETURN NEXT (' ' || rpad(v_res.schema_ref, schema_size+1, ' ') || '| ' || rpad(v_res.name_ref, object_size+1, ' ') || '| ' || rpad(v_res.table_attr_pkfkidx, tab1_size+1, ' ') || '|' || lpad(v_res.total::text, total_size+1, ' '));
 		END LOOP;
@@ -3842,7 +3842,7 @@ DECLARE
 	v_schema_list text;
 BEGIN
 	v_schema_list := replace($2, '''', '''''')::text;
-	SELECT string_agg(nspname,', ' ORDER BY nspname) INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
+	SELECT '"' || string_agg(nspname,'", "' ORDER BY nspname) || '"' INTO v_search_path FROM pg_namespace WHERE nspname NOT IN ('pg_toast', 'pg_temp_1', 'pg_toast_temp_1');
 	EXECUTE 'set search_path to ' || v_search_path;
 
 	EXECUTE 'copy (SELECT * FROM oracle_file(''' || p_date ||''', '''|| v_schema_list || ''')) to ''' || p_location_file || '/' || p_name_output_file || '.txt''';
