@@ -1,0 +1,8 @@
+# Author: Yudisney Vazquez Ortíz [ yvazquezo@gmail.com ]
+# Tested: PostgreSQL 11-12-13 and EDB Postgres 11-12-13
+
+comment = 'Extension for validate objects migration from Oracle to PostgreSQL'
+default_version = '3.0'
+relocatable = true
+superuser = true
+requires = oracle_fdw
