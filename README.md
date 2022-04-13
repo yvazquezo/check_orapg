@@ -1,7 +1,7 @@
 # check_orapg
 *Extension for validate objects migration from Oracle to PostgreSQL*
 
-###### check_orapg 3.0 | Author: Yudisney Vazquez (yvazquezo@gmail.com)
+###### check_orapg 3.0 | Author: Yudisney Vazquez
 
 ## Description
 
